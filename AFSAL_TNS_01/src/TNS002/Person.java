@@ -1,10 +1,10 @@
 package TNS002;
 
 public class Person {
-    public String name;       // Public: accessible from anywhere
-    protected int age;        // Protected: same package & subclasses
-    String city;              // Default (package-private): same package only
-    private double salary;    // Private: only in this class
+    public String name;      
+    protected int age;        
+    String city;             
+    private double salary;    
 
 
     public void setSalary(double salary) {
