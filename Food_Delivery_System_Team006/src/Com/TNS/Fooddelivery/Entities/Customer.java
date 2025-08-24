@@ -6,20 +6,21 @@ public class Customer {
     private long contact;
     private Cart cart = new Cart();
 
-    public Customer(int id, String name, long contact) {
-        this.id = id;
-        this.name = name;
-        this.contact = contact;
+    public Customer(int id,String name,long contact){ 
+        this.id = id; 
+        this.name = name; 
+        this.contact = contact; 
     }
 
     // Getters
-    public int getId() { return id; }
-    public String getName() { return name; }
-    public long getContact() { return contact; }
-    public Cart getCart() { return cart; }
+    public int getId(){ return id; }
+    public String getName(){ return name; }
+    public long getContact(){ return contact; }
+    public Cart getCart(){ return cart; }
 
-    // Cart helper
-    public void addItem(FoodItem f, int qty) {
-        cart.addItem(f, qty);
-    }
+    // Setters
+    public void setId(int id){ this.id = id; }
+    public void setName(String name){ this.name = name; }
+    public void setContact(long contact){ this.contact = contact; }
+    public void setCart(Cart cart){ this.cart = cart; }
 }

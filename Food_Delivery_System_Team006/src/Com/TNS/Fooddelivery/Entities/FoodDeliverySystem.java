@@ -1,7 +1,12 @@
 package Com.TNS.Fooddelivery.Entities;
 
-import java.util.*;
-
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.InputMismatchException;
+import java.util.List;
+import java.util.Map;
+import java.util.Random;
+import java.util.Scanner;
 // ---------------- FoodDeliverySystem ----------------
 public class FoodDeliverySystem {
     static Scanner sc = new Scanner(System.in);
@@ -22,16 +27,16 @@ public class FoodDeliverySystem {
         while(true) {
             try {
                 System.out.println("\n1. Admin Menu\n2. Customer Menu\n3. Exit");
-                System.out.print("➡ Choose Option (1-3): ");
+                System.out.print(" Choose Option (1-3): ");
                 int choice = sc.nextInt();
                 if(choice==1) adminMenu();
                 else if(choice==2) customerMenu();
                 else break;
             } catch(InputMismatchException e) {
-                System.out.println("⚠ Invalid input! Please enter numbers only.");
+                System.out.println(" Invalid input! Please enter numbers only.");
                 sc.nextLine();
             } catch(Exception e) {
-                System.out.println("⚠ Unexpected error: " + e.getMessage());
+                System.out.println(" Unexpected error: " + e.getMessage());
             }
         }
     }
@@ -52,7 +57,7 @@ public class FoodDeliverySystem {
                 System.out.println("9. Track Orders");
                 System.out.println("10. Back");
 
-                System.out.print("➡ Choose Option (1-10): ");
+                System.out.print(" Choose Option (1-10): ");
                 int choice = sc.nextInt();
 
                 switch(choice) {
@@ -62,7 +67,7 @@ public class FoodDeliverySystem {
                         String name = sc.nextLine();
                         Restaurant r = new Restaurant(restaurantCounter, name);
                         restaurants.put(restaurantCounter, r);
-                        System.out.println("✅ Restaurant Added with ID " + restaurantCounter);
+                        System.out.println(" Restaurant Added with ID " + restaurantCounter);
                         restaurantCounter++;
                         break;
 
@@ -70,25 +75,25 @@ public class FoodDeliverySystem {
                         System.out.print("Enter Restaurant ID to remove: ");
                         int ridRemove = sc.nextInt();
                         if(restaurants.remove(ridRemove)!=null)
-                            System.out.println("✅ Restaurant removed successfully.");
+                            System.out.println(" Restaurant removed successfully.");
                         else
-                            System.out.println("❌ Restaurant ID not found!");
+                            System.out.println(" Restaurant ID not found!");
                         break;
 
                     case 3:
                         System.out.print("Enter Restaurant ID: ");
                         int ridAddFood = sc.nextInt();
                         r = restaurants.get(ridAddFood);
-                        if(r==null){ System.out.println("❌ Invalid Restaurant ID"); break; }
+                        if(r==null){ System.out.println(" Invalid Restaurant ID"); break; }
                         sc.nextLine();
                         System.out.print("Enter Food Name: ");
                         String fname = sc.nextLine();
                         System.out.print("Enter Price: ");
                         double price = sc.nextDouble();
-                        if(price <=0){ System.out.println("❌ Price must be greater than zero."); break; }
+                        if(price <=0){ System.out.println(" Price must be greater than zero."); break; }
                         FoodItem f = new FoodItem(foodCounter, fname, price);
                         r.addFoodItem(f);
-                        System.out.println("✅ Food Added with ID " + foodCounter);
+                        System.out.println(" Food Added with ID " + foodCounter);
                         foodCounter++;
                         break;
 
@@ -96,20 +101,20 @@ public class FoodDeliverySystem {
                         System.out.print("Enter Restaurant ID: ");
                         int ridRemoveFood = sc.nextInt();
                         r = restaurants.get(ridRemoveFood);
-                        if(r==null){ System.out.println("❌ Invalid Restaurant ID"); break; }
-                        if(r.getMenu().isEmpty()){ System.out.println("❌ No food items available to remove."); break; }
+                        if(r==null){ System.out.println(" Invalid Restaurant ID"); break; }
+                        if(r.getMenu().isEmpty()){ System.out.println(" No food items available to remove."); break; }
                         System.out.println("Menu:");
                         for(FoodItem fi : r.getMenu()) System.out.println(fi);
                         System.out.print("Enter Food ID to Remove: ");
                         int fid = sc.nextInt();
                         if(r.removeFoodItem(fid))
-                            System.out.println("✅ Food Removed.");
+                            System.out.println(" Food Removed.");
                         else
-                            System.out.println("❌ Food ID not found!");
+                            System.out.println(" Food ID not found");
                         break;
 
                     case 5:
-                        if(restaurants.isEmpty()){ System.out.println("❌ No restaurants available."); break; }
+                        if(restaurants.isEmpty()){ System.out.println(" No restaurants available."); break; }
                         for(Restaurant rest : restaurants.values()){
                             System.out.println(rest);
                             for(FoodItem fi : rest.getMenu()) System.out.println("   " + fi);
@@ -117,7 +122,7 @@ public class FoodDeliverySystem {
                         break;
 
                     case 6:
-                        if(orders.isEmpty()){ System.out.println("❌ No orders placed yet."); break; }
+                        if(orders.isEmpty()){ System.out.println(" No orders placed yet."); break; }
                         for(Order o : orders.values()){
                             System.out.println("Order ID: " + o.getId() + " | Customer: " + o.getCustomer().getName() +
                                     " | Status: " + o.getStatus() +
@@ -133,7 +138,7 @@ public class FoodDeliverySystem {
                         long dcontact = sc.nextLong();
                         DeliveryPerson dp = new DeliveryPerson(deliveryCounter, dname, dcontact);
                         deliveryPersons.put(deliveryCounter, dp);
-                        System.out.println("✅ Delivery Person Added with ID " + deliveryCounter);
+                        System.out.println(" Delivery Person Added with ID " + deliveryCounter);
                         deliveryCounter++;
                         break;
 
@@ -141,22 +146,22 @@ public class FoodDeliverySystem {
                         System.out.print("Enter Order ID to assign: ");
                         int oid = sc.nextInt();
                         Order o = orders.get(oid);
-                        if(o==null){ System.out.println("❌ Invalid Order ID"); break; }
-                        if(deliveryPersons.isEmpty()){ System.out.println("⚠ No Delivery Persons available!"); break; }
+                        if(o==null){ System.out.println(" Invalid Order ID"); break; }
+                        if(deliveryPersons.isEmpty()){ System.out.println(" No Delivery Persons available!"); break; }
                         System.out.println("Available Delivery Persons:");
                         for(DeliveryPerson d : deliveryPersons.values())
                             System.out.println(d.getId() + ". " + d.getName() + " (" + d.getContact() + ")");
                         System.out.print("Enter Delivery Person ID: ");
                         int did = sc.nextInt();
                         dp = deliveryPersons.get(did);
-                        if(dp==null){ System.out.println("❌ Invalid Delivery Person ID"); break; }
+                        if(dp==null){ System.out.println(" Invalid Delivery Person ID"); break; }
                         o.setDeliveryPerson(dp);
                         o.setStatus("Assigned to " + dp.getName());
-                        System.out.println("✅ Delivery Person Assigned: " + dp.getName());
+                        System.out.println(" Delivery Person Assigned: " + dp.getName());
                         break;
 
                     case 9:
-                        if(orders.isEmpty()){ System.out.println("❌ No orders to track."); break; }
+                        if(orders.isEmpty()){ System.out.println(" No orders to track."); break; }
                         for(Order ord : orders.values()){
                             System.out.println("Order ID: " + ord.getId() +
                                     " | Status: " + ord.getStatus() +
@@ -166,13 +171,13 @@ public class FoodDeliverySystem {
 
                     case 10: return;
 
-                    default: System.out.println("❌ Invalid choice!");
+                    default: System.out.println(" Invalid choice!");
                 }
             } catch(InputMismatchException e){
-                System.out.println("⚠ Invalid input! Please enter numbers only.");
+                System.out.println(" Invalid input! Please enter numbers only.");
                 sc.nextLine();
             } catch(Exception e){
-                System.out.println("⚠ Error: " + e.getMessage());
+                System.out.println(" Error: " + e.getMessage());
             }
         }
     }
@@ -190,7 +195,7 @@ public class FoodDeliverySystem {
                 System.out.println("6. Track Order");
                 System.out.println("7. Back");
 
-                System.out.print("➡ Choose Option (1-7): ");
+                System.out.print(" Choose Option (1-7): ");
                 int choice = sc.nextInt();
 
                 switch(choice){
@@ -201,13 +206,13 @@ public class FoodDeliverySystem {
                     case 5: placeOrder(); break;
                     case 6: trackOrder(); break;
                     case 7: return;
-                    default: System.out.println("❌ Invalid choice!");
+                    default: System.out.println(" Invalid choice!");
                 }
             } catch(InputMismatchException e){
-                System.out.println("⚠ Invalid input! Please enter numbers only.");
+                System.out.println(" Invalid input! Please enter numbers only.");
                 sc.nextLine();
             } catch(Exception e){
-                System.out.println("⚠ Error: " + e.getMessage());
+                System.out.println(" Error: " + e.getMessage());
             }
         }
     }
@@ -224,10 +229,10 @@ public class FoodDeliverySystem {
             Customer c = new Customer(customerCounter, name, contact);
             customers.put(customerCounter, c);
 
-            System.out.println("✅ Registered Successfully. Your Customer ID = " + customerCounter);
+            System.out.println(" Registered Successfully. Your Customer ID = " + customerCounter);
             customerCounter++;
         } catch(InputMismatchException e){
-            System.out.println("⚠ Invalid contact number!");
+            System.out.println(" Invalid contact number!");
             sc.nextLine();
         }
     }
@@ -245,7 +250,7 @@ public class FoodDeliverySystem {
             System.out.print("Enter your Customer ID: ");
             int cid = sc.nextInt();
             Customer c = customers.get(cid);
-            if(c==null){ System.out.println("❌ Invalid Customer ID."); return; }
+            if(c==null){ System.out.println(" Invalid Customer ID."); return; }
 
             viewFoodItems();
             System.out.print("Enter Restaurant ID: ");
@@ -263,9 +268,9 @@ public class FoodDeliverySystem {
             if(qty <=0){ System.out.println("Quantity must be positive."); return; }
 
             c.getCart().addItem(chosen, qty);
-            System.out.println("✅ Added to Cart!");
+            System.out.println(" Added to Cart!");
         } catch(InputMismatchException e){
-            System.out.println("⚠ Invalid input!");
+            System.out.println(" Invalid input!");
             sc.nextLine();
         }
     }
@@ -275,10 +280,10 @@ public class FoodDeliverySystem {
             System.out.print("Enter your Customer ID: ");
             int cid = sc.nextInt();
             Customer c = customers.get(cid);
-            if(c==null){ System.out.println("❌ Invalid Customer ID."); return; }
+            if(c==null){ System.out.println(" Invalid Customer ID."); return; }
             System.out.println(c.getCart());
         } catch(InputMismatchException e){
-            System.out.println("⚠ Invalid input!");
+            System.out.println(" Invalid input!");
             sc.nextLine();
         }
     }
@@ -288,8 +293,8 @@ public class FoodDeliverySystem {
             System.out.print("Enter your Customer ID: ");
             int cid = sc.nextInt();
             Customer c = customers.get(cid);
-            if(c==null){ System.out.println("❌ Invalid Customer ID."); return; }
-            if(c.getCart().getItems().isEmpty()){ System.out.println("❌ Your cart is empty!"); return; }
+            if(c==null){ System.out.println(" Invalid Customer ID."); return; }
+            if(c.getCart().getItems().isEmpty()){ System.out.println(" Your cart is empty!"); return; }
 
             Order o = new Order(orderCounter, c, new HashMap<>(c.getCart().getItems()));
             if(!deliveryPersons.isEmpty()) {
@@ -302,10 +307,10 @@ public class FoodDeliverySystem {
             }
             orders.put(orderCounter, o);
             c.getCart().clearCart();
-            System.out.println("✅ Order Placed! Your Order ID = " + orderCounter);
+            System.out.println(" Order Placed! Your Order ID = " + orderCounter);
             orderCounter++;
         } catch(InputMismatchException e){
-            System.out.println("⚠ Invalid input!");
+            System.out.println(" Invalid input!");
             sc.nextLine();
         }
     }
@@ -315,12 +320,12 @@ public class FoodDeliverySystem {
             System.out.print("Enter your Order ID: ");
             int oid = sc.nextInt();
             Order o = orders.get(oid);
-            if(o==null){ System.out.println("❌ Invalid Order ID."); return; }
+            if(o==null){ System.out.println(" Invalid Order ID."); return; }
 
             System.out.println("Order Status: " + o.getStatus() +
                     " | Delivery Person: " + (o.getDeliveryPerson()!=null ? o.getDeliveryPerson() : "Not Assigned"));
         } catch(InputMismatchException e){
-            System.out.println("⚠ Invalid input!");
+            System.out.println(" Invalid input!");
             sc.nextLine();
         }
     }
@@ -347,80 +352,5 @@ public class FoodDeliverySystem {
     }
 }
 
-// ---------------- Supporting Classes ----------------
-class Restaurant {
-    private int id;
-    private String name;
-    private List<FoodItem> menu = new ArrayList<>();
-    public Restaurant(int id,String name){ this.id=id; this.name=name; }
-    public int getId(){return id;}
-    public void addFoodItem(FoodItem f){ menu.add(f);}
-    public boolean removeFoodItem(int fid){ return menu.removeIf(f -> f.getId()==fid);}
-    public List<FoodItem> getMenu(){return menu;}
-    public String toString(){ return "Restaurant " + id + ": " + name; }
-}
 
-class FoodItem {
-    private int id;
-    private String name;
-    private double price;
-    public FoodItem(int id,String name,double price){this.id=id; this.name=name; this.price=price;}
-    public int getId(){return id;}
-    public double getPrice(){return price;}
-    public String toString(){return id + ". " + name + " - ₹" + price;}
-}
 
-class Customer {
-    private int id;
-    private String name;
-    private long contact;
-    private Cart cart = new Cart();
-    public Customer(int id,String name,long contact){this.id=id; this.name=name; this.contact=contact;}
-    public int getId(){return id;}
-    public String getName(){return name;}
-    public Cart getCart(){return cart;}
-}
-
-class Cart {
-    private Map<FoodItem,Integer> items = new HashMap<>();
-    public void addItem(FoodItem f,int qty){ items.put(f, items.getOrDefault(f,0)+qty); }
-    public Map<FoodItem,Integer> getItems(){ return items; }
-    public void clearCart(){ items.clear(); }
-    public String toString(){
-        if(items.isEmpty()) return "Cart is empty.";
-        StringBuilder sb = new StringBuilder("Your Cart:\n");
-        double total=0;
-        for(Map.Entry<FoodItem,Integer> e: items.entrySet()){
-            sb.append(e.getKey().toString()+" x"+e.getValue()+"\n");
-            total += e.getKey().getPrice() * e.getValue();
-        }
-        sb.append("Total: ₹" + total);
-        return sb.toString();
-    }
-}
-
-class Order {
-    private int id;
-    private Customer customer;
-    private Map<FoodItem,Integer> items;
-    private String status = "Pending";
-    private DeliveryPerson deliveryPerson;
-    public Order(int id, Customer c, Map<FoodItem,Integer> items){ this.id=id; this.customer=c; this.items=new HashMap<>(items);}
-    public int getId(){return id;}
-    public Customer getCustomer(){return customer;}
-    public DeliveryPerson getDeliveryPerson(){return deliveryPerson;}
-    public void setDeliveryPerson(DeliveryPerson dp){this.deliveryPerson=dp;}
-    public void setStatus(String status){this.status=status;}
-    public String getStatus(){return status;}
-}
-
-class DeliveryPerson {
-    private int id;
-    private String name;
-    private long contact;
-    public DeliveryPerson(int id,String name,long contact){this.id=id;this.name=name;this.contact=contact;}
-    public int getId(){return id;}
-    public String getName(){return name;}
-    public long getContact(){return contact;}
-    public String toString(){return name + " (" + contact + ")";}
-}
