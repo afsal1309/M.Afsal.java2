@@ -2,7 +2,7 @@ package Com.TNS.Fooddelivery.Entities;
 
 import java.util.*;
 
-class Cart {
+public class Cart {
     private Map<FoodItem,Integer> items = new HashMap<>();
 
     // Getters

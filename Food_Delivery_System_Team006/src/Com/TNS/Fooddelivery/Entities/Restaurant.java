@@ -2,7 +2,7 @@ package Com.TNS.Fooddelivery.Entities;
 
 import java.util.*;
 
-class Restaurant {
+public class Restaurant {
     private int id;
     private String name;
     private List<FoodItem> menu = new ArrayList<>();

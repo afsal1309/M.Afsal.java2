@@ -1,5 +1,4 @@
 package Com.TNS.Fooddelivery.Entities;
-
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.InputMismatchException;
@@ -7,19 +6,21 @@ import java.util.List;
 import java.util.Map;
 import java.util.Random;
 import java.util.Scanner;
+
+import Com.TNS.Fooddelivery.Entities.FoodDeliverySystem;
 // ---------------- FoodDeliverySystem ----------------
 public class FoodDeliverySystem {
-    static Scanner sc = new Scanner(System.in);
-    static Map<Integer, Restaurant> restaurants = new HashMap<>();
-    static Map<Integer, Customer> customers = new HashMap<>();
-    static Map<Integer, Order> orders = new HashMap<>();
-    static Map<Integer, DeliveryPerson> deliveryPersons = new HashMap<>();
+    public static Scanner sc = new Scanner(System.in);
+    public static Map<Integer, Restaurant> restaurants = new HashMap<>();
+    public static Map<Integer, Customer> customers = new HashMap<>();
+    public static Map<Integer, Order> orders = new HashMap<>();
+    public static Map<Integer, DeliveryPerson> deliveryPersons = new HashMap<>();
 
-    static int restaurantCounter = 1001;
-    static int foodCounter = 102;
-    static int customerCounter = 1;
-    static int orderCounter = 01;
-    static int deliveryCounter = 001;
+    public static int restaurantCounter = 1001;
+    public static int foodCounter = 102;
+    public static int customerCounter = 1;
+    public static int orderCounter = 01;
+    public static int deliveryCounter = 001;
 
     public static void main(String[] args) {
         setupSampleData();

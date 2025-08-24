@@ -1,6 +1,5 @@
 package FoodDeliverySystem.application;
 
-
 import Com.TNS.Fooddelivery.Entities.FoodDeliverySystem;
 
 public class MainApp {

@@ -4,7 +4,7 @@ import java.util.*;
 import java.time.*;
 import java.time.format.DateTimeFormatter;
 
-class Order {
+public class Order {
     private int id;
     private Customer customer;
     private Map<FoodItem,Integer> items;

@@ -1,6 +1,6 @@
 package Com.TNS.Fooddelivery.Entities;
 
-class FoodItem {
+public class FoodItem {
     private int id;
     private String name;
     private double price;
